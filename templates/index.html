@@ -5,8 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Great Number Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    
+    <div class="container">
+        <h1>Welcome to the Great Number Game!</h1>
+        <h3>I am thinking of a number between 1 and 100</h3>
+        {% if "indicator" in session %}
+            {% if session["indicator"] == "high" %}
+            <div class="indicator warning">
+                <h2>Too High!</h2>
+            </div>
+            {% elif session["indicator"] == "low" %}
+            <div class="indicator warning">
+                <h2>Too Low!</h2>
+            </div>
+            {% elif session["indicator"] == "lose" %}
+            <div class="indicator warning">
+                <h2>You lost!  The number was 
+                    {% if "number" in session %}
+                    {{ session["number"] }}!
+                    {% endif %}</h2>
+                <form>
+                    <button formaction="/play_again">Play Again</button>
+                </form>
+            </div>
+            {% else %}
+            <div class="indicator success">
+                <h2>You guessed it! The number was 
+                    {% if "number" in session %}
+                    {{ session["number"] }}!
+                    {% endif %}</h2>
+                    <form>
+                        <button formaction="/play_again">Play Again</button>
+                    </form>
+            </div>
+            {% endif %}
+        {% endif%}
+        <form action="/evaluate" method="post" class="form-container">
+            <div class="text-container">
+                <p>Take a guess!!!</p>
+                <span>(Attempts remaining: {{ session["attempts_left"] }})</span>
+            </div>
+            <input type="number" name="guess" value="1">
+            <input type="submit" value="Guess">
+        </form>
+        {% if "guess_history" in session and session["guess_history"]|length > 0 %}
+        <div>
+            <h4>Guess History:</h4>
+            <ol>
+            {% for guess in session["guess_history"] %}
+                <li>{{ guess }}</li>
+            {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
