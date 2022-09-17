@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Great Number Game Leaderboard</h1>
+        {% if session["leaderboard"]|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Attempts</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for player in session["leaderboard"] %}
+                <tr>
+                    <td>{{ player["name"] }}</td>
+                    <td>{{ player["attempts"] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>There are currently no records.</p>
+        {% endif %}
+        <form>
+            <button class="btn" formaction="/play_again">Beat the Record</button>
+        </form>
+    </div>
+</body>
+</html>

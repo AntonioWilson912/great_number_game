@@ -39,6 +39,13 @@
                     <form>
                         <button formaction="/play_again">Play Again</button>
                     </form>
+                    <form class="indicator-form" action="/add_name" method="post">
+                        <p>...or add your name to the leaderboard!</p>
+                        <div class="name-container">
+                            <input type="text" name="name" placeholder="Your name here...">
+                            <input class="btn" type="submit" value="Submit">
+                        </div>
+                    </form>
             </div>
             {% endif %}
         {% endif%}

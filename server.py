@@ -4,6 +4,8 @@ import random
 app = Flask(__name__)
 app.secret_key = "shhhhhhh"
 
+leaderboard = []
+
 @app.route("/")
 def game():
     if not "number" in session:
@@ -26,12 +28,24 @@ def evaluate_guess():
     if session["attempts_left"] <= 0 and session["indicator"] != "win":
         session["indicator"] = "lose"
     session["guess_history"].append(int_guess)
+    print(session["number"])
     return redirect("/")
 
 @app.route("/play_again")
 def play_again():
     session.clear()
     return redirect("/")
+
+@app.route("/add_name", methods=["POST"])
+def add_name():
+    # print("Received name:", request.form["name"])
+    leaderboard.append({"name": request.form["name"], "attempts": 5 - session["attempts_left"]})
+    return redirect("/leaderboard")
+
+@app.route("/leaderboard")
+def display_leaderboard():
+    session["leaderboard"] = leaderboard; # so that when the leaderboard page is refreshed, the leaderboard is not lost
+    return render_template("leaderboard.html")
 
 if __name__ == "__main__":
     app.run(debug = True)

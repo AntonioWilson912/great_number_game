@@ -31,7 +31,7 @@
     background-color: lime;
 }
 
-.indicator button {
+.indicator button, .btn {
     margin-top: 20px;
     padding: 10px;
     font-size: 1.2em;
@@ -41,7 +41,7 @@
     border-radius: 1em;
 }
 
-.indicator button:hover {
+.indicator button:hover, .btn:hover {
     background-color: rgb(236, 196, 120);
 }
 
@@ -52,13 +52,15 @@
     color: white;
 }
 
-.form-container > * {
+.form-container > *, .name-container > * {
     margin: 5px;
     font-size: 1.2em;
     padding: 10px;
 }
 
-.form-container input[type=text] {
+.form-container input[type=text],
+.form-container input[type=number],
+.name-container input[type=text] {
     border: 1px solid black;
 }
 
@@ -75,4 +77,35 @@
 .text-container > span {
     margin-top: 5px;
     font-size: 0.75em;
+}
+
+.indicator-form * {
+    margin-top: 10px;
+}
+
+.indicator-form, .name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table * {
+    padding: 20px;
+}
+
+table > thead {
+    background-color: orange;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: rgb(255, 224, 161)
+}
+
+table tbody tr:nth-child(even) {
+    background-color: rgb(240, 239, 236)
 }
